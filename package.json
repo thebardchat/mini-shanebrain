@@ -1,0 +1,21 @@
+{
+  "name": "mini-shanebrain",
+  "version": "1.0.0",
+  "description": "ADHD-friendly Facebook automation bot - quick wins for social media",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "dry-run": "node src/index.js --dry-run",
+    "post": "node src/index.js --post",
+    "schedule": "node src/index.js --schedule"
+  },
+  "keywords": ["facebook", "automation", "bot", "social-media"],
+  "author": "thebardchat",
+  "license": "MIT",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.39.0",
+    "dotenv": "^16.4.7",
+    "node-cron": "^3.0.3"
+  }
+}
