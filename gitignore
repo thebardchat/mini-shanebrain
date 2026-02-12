@@ -1,0 +1,19 @@
+# Secrets
+.env
+.env.local
+.env.production
+
+# Dependencies
+node_modules/
+
+# Logs
+logs/*.json
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
