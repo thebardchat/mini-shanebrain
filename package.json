@@ -8,7 +8,8 @@
     "start": "node src/index.js",
     "dry-run": "node src/index.js --dry-run",
     "post": "node src/index.js --post",
-    "schedule": "node src/index.js --schedule"
+    "schedule": "node src/index.js --schedule",
+    "token-setup": "node src/token-setup.js"
   },
   "keywords": ["facebook", "automation", "bot", "social-media"],
   "author": "thebardchat",
