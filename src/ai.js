@@ -75,6 +75,9 @@ export class ContentGenerator {
     prompt += `\n\nRules:
 - Keep it under ${maxLength} characters
 - Be authentic and conversational
+- NEVER share private family details, personal struggles, or anyone's health/recovery info
+- Keep it professional — this is a public business page
+- Do NOT include any preamble like "Here's the post:" — just write the post itself
 ${rules}`;
 
     if (topic) {
@@ -85,7 +88,7 @@ ${rules}`;
       prompt += `\n- Mood/tone: ${mood}`;
     }
 
-    prompt += `\n\nWrite only the post text, nothing else.`;
+    prompt += `\n\nRespond with ONLY the post text. No quotes, no preamble, no commentary.`;
 
     return prompt;
   }
@@ -122,10 +125,17 @@ ${rules}`;
     }
 
     const data = await response.json();
-    const text = data.response?.trim();
+    let text = data.response?.trim();
 
     if (!text) {
       throw new Error('Ollama returned empty response');
+    }
+
+    // Strip preamble lines like "Here's the post:" or "Sure!"
+    text = text.replace(/^.*(?:here'?s|sure|okay|here is).*?[:\n]/i, '').trim();
+    // Strip wrapping quotes
+    if (text.startsWith('"') && text.endsWith('"')) {
+      text = text.slice(1, -1).trim();
     }
 
     return text;
