@@ -1,9 +1,28 @@
 /**
  * AI Content Generator
- * Uses Claude API or local Ollama for generating Facebook posts
+ * Uses Claude API or local Ollama for generating social media posts
  */
 
 import Anthropic from '@anthropic-ai/sdk';
+
+const PLATFORM_RULES = {
+  facebook: `- No hashtags unless they feel natural
+- No emojis overload (1-2 max if any)
+- Don't start with "Hey everyone" or similar generic openers
+- Make it feel like a real person wrote it`,
+
+  instagram: `- Include 2-5 relevant hashtags at the end
+- Write visually — describe what the image could show
+- Keep it punchy, short paragraphs or single lines
+- Emojis are welcome (2-4)
+- Make it scroll-stopping`,
+
+  linkedin: `- Professional but human tone
+- No hashtags in the body (3 max at the very end if any)
+- End with a question or call-to-action
+- Share an insight, lesson, or perspective
+- No emojis`
+};
 
 export class ContentGenerator {
   constructor(config) {
@@ -22,12 +41,14 @@ export class ContentGenerator {
   }
 
   /**
-   * Generate a Facebook post
+   * Generate a post for a specific platform
+   * @param {object} options
+   * @param {string} options.platform - 'facebook' | 'instagram' | 'linkedin'
    */
   async generatePost(options = {}) {
-    const { topic, mood, maxLength = 280 } = options;
+    const { topic, mood, maxLength = 280, platform = 'facebook' } = options;
 
-    const prompt = this.buildPrompt({ topic, mood, maxLength });
+    const prompt = this.buildPrompt({ topic, mood, maxLength, platform });
 
     if (this.useOllama) {
       return this.generateWithOllama(prompt);
@@ -36,16 +57,16 @@ export class ContentGenerator {
     }
   }
 
-  buildPrompt({ topic, mood, maxLength }) {
-    let prompt = `You are ${this.personality}. Write a single Facebook post.
+  buildPrompt({ topic, mood, maxLength, platform = 'facebook' }) {
+    const platformName = platform.charAt(0).toUpperCase() + platform.slice(1);
+    const rules = PLATFORM_RULES[platform] || PLATFORM_RULES.facebook;
+
+    let prompt = `You are ${this.personality}. Write a single ${platformName} post.
 
 Rules:
 - Keep it under ${maxLength} characters
 - Be authentic and conversational
-- No hashtags unless they feel natural
-- No emojis overload (1-2 max if any)
-- Don't start with "Hey everyone" or similar generic openers
-- Make it feel like a real person wrote it`;
+${rules}`;
 
     if (topic) {
       prompt += `\n- Topic: ${topic}`;
@@ -105,7 +126,7 @@ Rules:
    * Generate multiple post ideas
    */
   async generateIdeas(count = 5) {
-    const prompt = `You are ${this.personality}. Generate ${count} distinct Facebook post ideas.
+    const prompt = `You are ${this.personality}. Generate ${count} distinct social media post ideas.
 
 Each idea should be:
 - A brief 1-line description of what the post would be about
