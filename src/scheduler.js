@@ -1,5 +1,5 @@
 /**
- * Scheduler for automated posting
+ * Scheduler for automated multi-platform posting
  * Uses node-cron for timing
  */
 
@@ -25,7 +25,7 @@ function log(msg, type = 'info') {
   console.log(`${colors.dim(timestamp)} ${prefix[type] || ''} ${msg}`);
 }
 
-function logToFile(content, success, error = null) {
+function logToFile(platform, content, success, error = null) {
   const logsDir = './logs';
   if (!existsSync(logsDir)) {
     mkdirSync(logsDir, { recursive: true });
@@ -33,7 +33,7 @@ function logToFile(content, success, error = null) {
 
   const timestamp = new Date().toISOString();
   const status = success ? 'POSTED' : 'FAILED';
-  let entry = `[${timestamp}] [${status}]\n${content}\n`;
+  let entry = `[${timestamp}] [${platform.toUpperCase()}] [${status}]\n${content}\n`;
   if (error) {
     entry += `Error: ${error}\n`;
   }
@@ -42,14 +42,20 @@ function logToFile(content, success, error = null) {
   appendFileSync(`${logsDir}/posts.log`, entry);
 }
 
-export function startScheduler(fb, ai, cronSchedule) {
-  // Validate cron expression
+/**
+ * @param {Array} platforms - array of BasePlatform instances
+ * @param {ContentGenerator} ai - AI content generator
+ * @param {string} cronSchedule - cron expression
+ */
+export function startScheduler(platforms, ai, cronSchedule) {
   if (!cron.validate(cronSchedule)) {
     log(`Invalid cron schedule: ${cronSchedule}`, 'error');
     process.exit(1);
   }
 
-  log(`Scheduler started. Next posts at: ${getNextRuns(cronSchedule, 3).join(', ')}`);
+  const names = platforms.map(p => p.name).join(', ');
+  log(`Scheduler started for: ${names}`);
+  log(`Next posts at: ${getNextRuns(cronSchedule, 3).join(', ')}`);
 
   let postCount = 0;
   let errorCount = 0;
@@ -57,32 +63,34 @@ export function startScheduler(fb, ai, cronSchedule) {
   cron.schedule(cronSchedule, async () => {
     log('Scheduled post triggered...');
 
-    try {
-      // Generate content
-      const content = await ai.generatePost();
-      log(`Generated: "${content.substring(0, 50)}..."`);
+    for (const platform of platforms) {
+      try {
+        const content = await ai.generatePost({
+          platform: platform.name,
+          maxLength: platform.maxLength
+        });
+        log(`[${platform.name}] Generated: "${content.substring(0, 50)}..."`);
 
-      // Post to Facebook
-      const result = await fb.post(content);
-      postCount++;
+        const result = await platform.post(content);
+        postCount++;
 
-      log(`Posted successfully! ID: ${result.postId}`, 'success');
-      log(`Stats: ${postCount} posts, ${errorCount} errors`);
-      logToFile(content, true);
+        log(`[${platform.name}] Posted! ID: ${result.postId}`, 'success');
+        logToFile(platform.name, content, true);
 
-    } catch (err) {
-      errorCount++;
-      log(`Failed to post: ${err.message}`, 'error');
-      logToFile('Failed to generate/post', false, err.message);
-
-      // If too many errors, maybe pause
-      if (errorCount >= 5) {
-        log('Too many consecutive errors. Check your tokens and API status.', 'error');
+      } catch (err) {
+        errorCount++;
+        log(`[${platform.name}] Failed: ${err.message}`, 'error');
+        logToFile(platform.name, 'Failed to generate/post', false, err.message);
       }
+    }
+
+    log(`Stats: ${postCount} posts, ${errorCount} errors`);
+
+    if (errorCount >= 5) {
+      log('Too many errors. Check your tokens and API status.', 'error');
     }
   });
 
-  // Keep the process alive
   process.on('SIGINT', () => {
     log(`\nShutting down. Final stats: ${postCount} posts, ${errorCount} errors`, 'warn');
     process.exit(0);
@@ -90,7 +98,6 @@ export function startScheduler(fb, ai, cronSchedule) {
 }
 
 function getNextRuns(cronExpr, count) {
-  // Simple approximation - just show the schedule pattern
   const parts = cronExpr.split(' ');
   if (parts.length >= 5) {
     const hours = parts[1].split(',');

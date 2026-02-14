@@ -1,13 +1,15 @@
 /**
- * Facebook Graph API wrapper
- * Handles all Facebook interactions
+ * Facebook platform - Graph API wrapper
  */
+
+import { BasePlatform } from './base.js';
 
 const GRAPH_API_VERSION = 'v21.0';
 const GRAPH_API_BASE = `https://graph.facebook.com/${GRAPH_API_VERSION}`;
 
-export class FacebookAPI {
+export class FacebookPlatform extends BasePlatform {
   constructor(pageId, accessToken) {
+    super({ name: 'facebook', maxLength: 63206 });
     if (!pageId || !accessToken) {
       throw new Error('Missing FACEBOOK_PAGE_ID or FACEBOOK_ACCESS_TOKEN in .env');
     }
@@ -15,9 +17,6 @@ export class FacebookAPI {
     this.accessToken = accessToken;
   }
 
-  /**
-   * Post content to the Facebook page
-   */
   async post(message) {
     const url = `${GRAPH_API_BASE}/${this.pageId}/feed`;
 
@@ -36,16 +35,9 @@ export class FacebookAPI {
       throw new Error(`Facebook API Error: ${data.error.message}`);
     }
 
-    return {
-      success: true,
-      postId: data.id,
-      message
-    };
+    return { success: true, postId: data.id, message };
   }
 
-  /**
-   * Get recent posts from the page
-   */
   async getRecentPosts(limit = 5) {
     const url = `${GRAPH_API_BASE}/${this.pageId}/posts?limit=${limit}&access_token=${this.accessToken}`;
 
@@ -59,9 +51,6 @@ export class FacebookAPI {
     return data.data || [];
   }
 
-  /**
-   * Get engagement stats for a post
-   */
   async getPostEngagement(postId) {
     const url = `${GRAPH_API_BASE}/${postId}?fields=likes.summary(true),comments.summary(true),shares&access_token=${this.accessToken}`;
 
@@ -79,9 +68,6 @@ export class FacebookAPI {
     };
   }
 
-  /**
-   * Verify the token is valid
-   */
   async verifyToken() {
     const url = `${GRAPH_API_BASE}/me?access_token=${this.accessToken}`;
 
