@@ -4,6 +4,7 @@
  */
 
 import Anthropic from '@anthropic-ai/sdk';
+import { queryKnowledge } from './weaviate.js';
 
 const PLATFORM_RULES = {
   facebook: `- No hashtags unless they feel natural
@@ -48,7 +49,11 @@ export class ContentGenerator {
   async generatePost(options = {}) {
     const { topic, mood, maxLength = 280, platform = 'facebook' } = options;
 
-    const prompt = this.buildPrompt({ topic, mood, maxLength, platform });
+    // Pull context from Weaviate RAG if available
+    const ragQuery = topic || this.personality;
+    const ragContext = await queryKnowledge(ragQuery);
+
+    const prompt = this.buildPrompt({ topic, mood, maxLength, platform, ragContext });
 
     if (this.useOllama) {
       return this.generateWithOllama(prompt);
@@ -57,13 +62,17 @@ export class ContentGenerator {
     }
   }
 
-  buildPrompt({ topic, mood, maxLength, platform = 'facebook' }) {
+  buildPrompt({ topic, mood, maxLength, platform = 'facebook', ragContext = '' }) {
     const platformName = platform.charAt(0).toUpperCase() + platform.slice(1);
     const rules = PLATFORM_RULES[platform] || PLATFORM_RULES.facebook;
 
-    let prompt = `You are ${this.personality}. Write a single ${platformName} post.
+    let prompt = `You are ${this.personality}. Write a single ${platformName} post.`;
 
-Rules:
+    if (ragContext) {
+      prompt += `\n\nUse this background knowledge to inspire the post (don't copy it verbatim, just let it inform your voice and topics):\n${ragContext}`;
+    }
+
+    prompt += `\n\nRules:
 - Keep it under ${maxLength} characters
 - Be authentic and conversational
 ${rules}`;
