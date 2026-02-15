@@ -1,45 +1,36 @@
-# mini-shanebrain
+# mini-shanebrain — DEPRECATED
 
-A quick-win Facebook automation bot for the ADHD brain. Run it, forget it, let it handle one social platform for a few weeks.
+> **Status:** DEPRECATED as of February 15, 2026
+> **Merged into:** `/mnt/shanebrain-raid/shanebrain-core/social/`
 
-## Architecture
+## What Happened
 
-- **Runtime**: Node.js (ES modules)
-- **AI Backend**: Claude API (primary) or Ollama (local fallback)
-- **Platform**: Facebook Graph API v21.0
+mini-shanebrain was a standalone Node.js Facebook bot. On February 15, 2026, all functionality was ported to Python and merged into shanebrain-core's `social/` module.
 
-## File Structure
+## Migration Map
 
-```
-src/
-  facebook.js  - Graph API wrapper (post, get engagement)
-  ai.js        - Content generation (Claude or Ollama)
-  index.js     - CLI entry point
-  scheduler.js - Cron-based auto-posting
-logs/          - Post history and errors (gitignored)
-```
+| mini-shanebrain (Node.js) | shanebrain-core/social/ (Python) |
+|---------------------------|----------------------------------|
+| src/facebook.js | social/facebook_api.py |
+| src/ai.js | social/content_generator.py |
+| src/index.js | social/fb_bot.py |
+| src/scheduler.js | social/fb_bot.py (APScheduler) |
+| token-setup.js | social/token_exchange.py |
+| N/A (new) | social/comment_harvester.py |
+| N/A (new) | social/friend_profiler.py |
+| N/A (new) | social/content_calendar.py |
 
-## Key API Endpoints
+## What's New in the Python Version
 
-- POST `/{page-id}/feed` - Create a post
-- GET `/{page-id}/posts` - Read recent posts
-- GET `/{post-id}?fields=likes,comments` - Get engagement
+- **Weaviate integration** — every comment/reaction is vectorized and searchable
+- **Friend profiling** — builds living profiles of everyone who interacts
+- **Sentiment analysis** — Ollama-powered + keyword fallback
+- **7-day content calendar** — themed posting (Mission Monday → Family Sunday)
+- **Pollinations.ai** — free AI-generated images
+- **Unified with Discord** — both platforms feed same Weaviate collections
 
-## Environment
+## Do Not Use This Repo
 
-All secrets live in `.env` (never committed). Copy `.env.example` to get started.
+Use `python -m social.fb_bot` from `/mnt/shanebrain-raid/shanebrain-core/` instead.
 
-## Commands
-
-```bash
-npm run dry-run   # Preview what would post (safe)
-npm run post      # Post once immediately
-npm run schedule  # Run continuously on cron schedule
-```
-
-## Rules
-
-1. Never commit .env or any tokens
-2. Always test with --dry-run first
-3. Respect Facebook rate limits (200 posts/hour max, but we post 3x/day)
-4. Keep posts authentic to the page personality
+This repo is kept as a reference only.
