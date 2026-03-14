@@ -34,3 +34,8 @@ mini-shanebrain was a standalone Node.js Facebook bot. On February 15, 2026, all
 Use `python -m social.fb_bot` from `/mnt/shanebrain-raid/shanebrain-core/` instead.
 
 This repo is kept as a reference only.
+
+## Claude Code Rules
+- Commit and push directly to `main`. Do NOT create branches.
+- Run build/test commands before committing.
+- Update CLAUDE.md session log before final commit.
