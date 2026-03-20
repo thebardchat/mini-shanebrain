@@ -1,0 +1,179 @@
+[
+  {
+    "id": "excerpt-001",
+    "scene": 1,
+    "title": "The Lead Character",
+    "text": "Every single other person on this planet is the lead character of the exact same movie. Seven billion directors. Seven billion cameras.",
+    "hashtags": ["noir", "philosophy", "identity"],
+    "hook": "It's your favorite movie, and you're the lead character. You always have been."
+  },
+  {
+    "id": "excerpt-002",
+    "scene": 2,
+    "title": "Tuned In, Tuned Out",
+    "text": "They are connected to everything and present for nothing. Tuned in to a frequency that carries every voice except the one worth hearing — the one that says look up, the sky is on fire and it's doing it for free.",
+    "hashtags": ["presence", "disconnect", "noir"],
+    "hook": "The sun is going down. Nobody notices. Not the way it deserves."
+  },
+  {
+    "id": "excerpt-003",
+    "scene": 3,
+    "title": "The Garbage Man",
+    "text": "The body doesn't wait for the verdict. It just keeps going.",
+    "hashtags": ["resilience", "noir", "humanity"],
+    "hook": "He didn't look up. But his lungs filled. His heart pumped without being asked."
+  },
+  {
+    "id": "excerpt-004",
+    "scene": 4,
+    "title": "Body Fuel",
+    "text": "The body needs what the body needs.",
+    "hashtags": ["routine", "survival", "noir"],
+    "hook": "Gas station. Fluorescent lights doing their best impression of daylight."
+  },
+  {
+    "id": "excerpt-005",
+    "scene": 5,
+    "title": "AnthropScene",
+    "text": "This thing assembled from human voices, now helping one human find his. The detective didn't ask where it came from. Neither did you. You just started reading.",
+    "hashtags": ["AI", "writing", "noir", "metacognition"],
+    "hook": "The detective didn't ask where it came from. Neither did you."
+  },
+  {
+    "id": "excerpt-006",
+    "scene": 6,
+    "title": "Far Enough In",
+    "text": "The wizard is behind the curtain. The curtain is behind you. The road is behind the curtain. And out here — far enough in — none of it was ever really chasing you. You just forgot you could stop.",
+    "hashtags": ["stillness", "escape", "noir"],
+    "hook": "You have to get far enough in."
+  },
+  {
+    "id": "excerpt-007",
+    "scene": 7,
+    "title": "The Loop",
+    "text": "The night sky stops him for exactly three seconds. Stars — more than the suburbs usually allow — crowding the dark like they've been waiting. He saw them. That's the part that matters.",
+    "hashtags": ["stars", "presence", "noir"],
+    "hook": "The film keeps rolling."
+  },
+  {
+    "id": "excerpt-008",
+    "scene": 8,
+    "title": "The Slogan",
+    "text": "One day you won't. Take a breath. This is the only appointment on every calendar that never gets rescheduled.",
+    "hashtags": ["mortality", "breath", "noir"],
+    "hook": "He took a breath. Today that was enough."
+  },
+  {
+    "id": "excerpt-009",
+    "scene": 9,
+    "title": "The Wave",
+    "text": "Two cars. Two separate paths. One moment where they were briefly, improbably, considerate of each other. Then gone. The dark takes them both.",
+    "hashtags": ["connection", "strangers", "noir"],
+    "hook": "Is he going to wave."
+  },
+  {
+    "id": "excerpt-010",
+    "scene": 10,
+    "title": "Drop The Hammer",
+    "text": "He didn't have to let him win. He just lost. The detective accepts the verdict with the grace of a man who has learned that some defeats are the best thing that ever happened to you.",
+    "hashtags": ["fatherhood", "love", "noir"],
+    "hook": "Some rides home don't end at the door. Some end here. Right here."
+  },
+  {
+    "id": "excerpt-011",
+    "scene": 11,
+    "title": "The Rebuttal",
+    "text": "Only the truly loved get handled this way.",
+    "hashtags": ["love", "family", "noir"],
+    "hook": "The little string one grins with the full face. All teeth. Eyes lit like something feral and beloved."
+  },
+  {
+    "id": "excerpt-012",
+    "scene": 12,
+    "title": "The Billion",
+    "text": "A billion things move in formation. Each one small. Each one certain. Together they make a shape that almost means something.",
+    "hashtags": ["dreams", "pattern", "noir"],
+    "hook": "You probably think this is about you."
+  },
+  {
+    "id": "excerpt-013",
+    "scene": 13,
+    "title": "Still Asleep?",
+    "text": "Everything is exactly normal. You didn't either.",
+    "hashtags": ["dreams", "reality", "noir"],
+    "hook": "The seam between sleep and waking has no zipper."
+  },
+  {
+    "id": "excerpt-014",
+    "scene": 14,
+    "title": "You Finally Found",
+    "text": "You probably think this book is about you. You're right. It always was. It was never only about you. It was about everyone.",
+    "hashtags": ["identity", "revelation", "noir"],
+    "hook": "Not where you lost them. Not where you started looking. But at the end of the road you almost didn't take.",
+    "isFinale": true
+  },
+  {
+    "id": "excerpt-015",
+    "scene": 15,
+    "title": "Left Behind",
+    "text": "The things with no shape. The things you can't pat your pockets for.",
+    "hashtags": ["loss", "memory", "noir"],
+    "hook": "The laugh you used to have before you started monitoring your laugh."
+  },
+  {
+    "id": "excerpt-016",
+    "scene": 16,
+    "title": "The Audit",
+    "text": "Some people stop the truck and go back. Some people keep driving. Neither one is wrong.",
+    "hashtags": ["choice", "acceptance", "noir"],
+    "hook": "When to turn around and when to keep moving."
+  },
+  {
+    "id": "excerpt-017",
+    "scene": 17,
+    "title": "The Inventory",
+    "text": "The thing you were going to do differently. Some people leave it. Not because it didn't matter. Because the road ahead doesn't wait.",
+    "hashtags": ["regret", "forward", "noir"],
+    "hook": "The weight of unfinished things."
+  },
+  {
+    "id": "excerpt-018",
+    "scene": 18,
+    "title": "Dr. Seen",
+    "text": "The visionary who also empties the dishwasher.",
+    "hashtags": ["selfknowledge", "wisdom", "noir"],
+    "hook": "A brain doing exactly what it was built for — in a body that finally stopped fighting the blueprint."
+  },
+  {
+    "id": "excerpt-019",
+    "scene": 19,
+    "title": "Not A Bill",
+    "text": "The most important visits cost nothing you can pay back. The most important examinations leave no record. The most useful answers are the ones you already knew and needed someone to read back to you slowly in a quiet room.",
+    "hashtags": ["wisdom", "grace", "noir"],
+    "hook": "The invisible transaction."
+  },
+  {
+    "id": "excerpt-020",
+    "scene": 20,
+    "title": "Same Road",
+    "text": "The world didn't move. Your hand did. Same road. Different hands on the wheel.",
+    "hashtags": ["transformation", "perspective", "noir"],
+    "hook": "The observer shifts, the world stays the same."
+  },
+  {
+    "id": "excerpt-021",
+    "scene": 21,
+    "title": "The Old Man's File",
+    "text": "He put the question down in a parking lot in 1987 and never went back for it. He doesn't carry it anymore. Which is why he stands so close.",
+    "hashtags": ["wisdom", "letting-go", "noir"],
+    "hook": "The background character has been the most advanced student in every scene."
+  },
+  {
+    "id": "excerpt-022",
+    "scene": 22,
+    "title": "The Garbage Man's File",
+    "text": "Happy or not is the wrong question. Here is the right question: Present or not.",
+    "hashtags": ["presence", "philosophy", "noir"],
+    "hook": "The body votes. Every day. Without consulting the mind's current position on things."
+  }
+]

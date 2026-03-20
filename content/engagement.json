@@ -1,0 +1,61 @@
+[
+  {
+    "id": "engage-001",
+    "text": "What's the last thing you noticed that nobody else did? The detective notices everything. That's not a superpower. That's presence.",
+    "hashtags": ["noir", "presence", "question"]
+  },
+  {
+    "id": "engage-002",
+    "text": "Be honest: when's the last time you looked up at the sky and actually saw it? Not glanced. Saw it.",
+    "hashtags": ["presence", "mindfulness"],
+    "type": "question"
+  },
+  {
+    "id": "engage-003",
+    "text": "There's someone in your life who never gets named in the story but holds the whole thing together. Who is that person?",
+    "hashtags": ["gratitude", "community"],
+    "type": "question"
+  },
+  {
+    "id": "engage-004",
+    "text": "Happy or not is the wrong question. Present or not. That's the one that matters. Where are you on the scale today?",
+    "hashtags": ["presence", "noir", "philosophy"],
+    "type": "poll"
+  },
+  {
+    "id": "engage-005",
+    "text": "A book written by a dump truck dispatcher from a closet with a Raspberry Pi and an AI. What's your 'built from nothing' story?",
+    "hashtags": ["indie", "underdog", "community"],
+    "type": "question"
+  },
+  {
+    "id": "engage-006",
+    "text": "What's a sentence that changed how you see the world? Drop it below. I'll start: 'The body doesn't wait for the verdict. It just keeps going.'",
+    "hashtags": ["wisdom", "community", "noir"],
+    "type": "question"
+  },
+  {
+    "id": "engage-007",
+    "text": "If you could write one scene from your life in noir detective style — dark, dry, observational — which moment would you pick?",
+    "hashtags": ["noir", "writing", "creative"],
+    "type": "question"
+  },
+  {
+    "id": "engage-008",
+    "text": "The detective has no name. The garbage man has no name. The old man has no name. Because names would make them someone specific. And they need to be everyone. Who's your 'unnamed character'?",
+    "hashtags": ["noir", "writing", "humanity"],
+    "type": "question"
+  },
+  {
+    "id": "engage-009",
+    "text": "Some defeats are the best thing that ever happened to you. Name one.",
+    "hashtags": ["growth", "wisdom", "noir"],
+    "type": "question"
+  },
+  {
+    "id": "engage-010",
+    "text": "AI wrote this book with me. Not for me. With me. Every scene started as my voice — messy, raw, lived. Claude shaped it. I approved it. We built it together. What do you think about AI co-creation?",
+    "hashtags": ["AI", "cocreation", "debate"],
+    "type": "discussion"
+  }
+]

@@ -1,0 +1,57 @@
+{
+  "campaign": {
+    "name": "You Probably Think This Book Is About You — Launch Blitz",
+    "startDate": "2026-03-20",
+    "phases": {
+      "blitz": { "days": 14, "description": "Heavy excerpts + engagement, max posting frequency" },
+      "sustain": { "days": 14, "description": "Balanced mix of all content types" },
+      "growth": { "description": "Teasers + V2 content + ecosystem, community building" }
+    }
+  },
+  "schedules": {
+    "twitter": "0 7,10,13,16,19 * * *",
+    "facebook": "0 9,17 * * *",
+    "reddit": "0 11,18 * * *",
+    "discord": "0 8,13,20 * * *",
+    "bluesky": "0 9,15 * * *",
+    "linkedin": "0 8 * * 1-5",
+    "instagram": "0 12,18 * * *"
+  },
+  "contentSeries": {
+    "theCaseFile": {
+      "description": "22-post series, one excerpt per scene, daily drip on X/Twitter",
+      "platform": "twitter",
+      "cadence": "daily",
+      "contentType": "excerpts"
+    },
+    "shaneTalksClaludeShapes": {
+      "description": "Behind-the-scenes of the AI-human writing process",
+      "platforms": ["twitter", "linkedin", "facebook"],
+      "cadence": "every3days",
+      "contentType": "behindScenes"
+    },
+    "theConstitution": {
+      "description": "9 posts, one per pillar, connecting philosophy to the book",
+      "platforms": ["linkedin", "twitter", "bluesky"],
+      "cadence": "weekly",
+      "contentType": "ecosystem"
+    },
+    "fromTheCloset": {
+      "description": "The Raspberry Pi infrastructure story — relatable underdog angle",
+      "platforms": ["reddit", "twitter", "linkedin"],
+      "cadence": "weekly",
+      "contentType": "behindScenes"
+    },
+    "trackDrops": {
+      "description": "As Volume 2 tracks complete, exclusive previews",
+      "platforms": ["discord", "twitter", "bluesky"],
+      "cadence": "onRelease",
+      "contentType": "teasers"
+    }
+  },
+  "subreddits": {
+    "primary": ["writing", "selfpublish", "noir", "books"],
+    "tech": ["artificial", "LocalLLaMA", "selfhosted", "raspberry_pi"],
+    "niche": ["cybersecurity", "ADHD", "productivity"]
+  }
+}

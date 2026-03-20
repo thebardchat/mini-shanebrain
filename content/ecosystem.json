@@ -1,0 +1,37 @@
+[
+  {
+    "id": "eco-001",
+    "title": "Pulsar Sentinel",
+    "text": "Post-quantum cryptography shouldn't require a PhD. Pulsar Sentinel brings ML-KEM-768 security to everyone — starting at $10.99/mo. Built on Polygon. Running on Pi. Because privacy before convenience.",
+    "hashtags": ["cybersecurity", "quantum", "pulsarsentinel"],
+    "link": "pulsar_sentinel"
+  },
+  {
+    "id": "eco-002",
+    "title": "Thought Tree",
+    "text": "Your brain doesn't think in lists. It thinks in trees. Thought Tree is a visual mind-mapping app built for the way ideas actually work — branching, connecting, cascading. Dark theme. Orange accents. Built with React.",
+    "hashtags": ["productivity", "mindmap", "adhd"],
+    "link": "thought-tree"
+  },
+  {
+    "id": "eco-003",
+    "title": "The Infrastructure",
+    "text": "Raspberry Pi 5. 16GB RAM. Pironman 5-MAX chassis. 2TB NVMe RAID 1. 17 Weaviate collections. 27 MCP tools. Zero cloud bills. If you don't own your infrastructure, you don't own your future.",
+    "hashtags": ["localfirst", "raspberrypi", "infrastructure"],
+    "link": "thebardchat.github.io"
+  },
+  {
+    "id": "eco-004",
+    "title": "The Mission",
+    "text": "Put real AI tools in the hands of the ~800 million people Big Tech is about to leave behind. That's the mission. Everything else is a tactic.",
+    "hashtags": ["mission", "accessibility", "AI"],
+    "link": "thebardchat"
+  },
+  {
+    "id": "eco-005",
+    "title": "Local-First AI",
+    "text": "Pi before cloud. Privacy before convenience. Every project in the ShaneBrain ecosystem runs on local hardware. Because the moment you depend on someone else's server, you're renting your own future.",
+    "hashtags": ["localfirst", "privacy", "AI"],
+    "link": "constitution"
+  }
+]

@@ -1,7 +1,7 @@
 {
   "name": "mini-shanebrain",
-  "version": "2.0.0",
-  "description": "ADHD-friendly multi-platform social media bot (Facebook, Instagram, LinkedIn)",
+  "version": "3.0.0",
+  "description": "Multi-platform social media campaign engine — book promo, ecosystem growth, automated posting",
   "main": "src/index.js",
   "type": "module",
   "scripts": {
@@ -9,10 +9,18 @@
     "dry-run": "node src/index.js --dry-run",
     "post": "node src/index.js --post",
     "schedule": "node src/index.js --schedule",
+    "campaign": "node src/index.js --campaign",
+    "preview": "node src/index.js --preview",
+    "stats": "node src/index.js --stats",
     "platforms": "node src/index.js --platforms",
+    "verify": "node src/index.js --verify",
     "token-setup": "node src/token-setup.js"
   },
-  "keywords": ["facebook", "instagram", "linkedin", "automation", "bot", "social-media"],
+  "keywords": [
+    "facebook", "instagram", "linkedin", "twitter", "reddit",
+    "discord", "bluesky", "automation", "bot", "social-media",
+    "campaign", "promo", "noir", "book-marketing"
+  ],
   "author": "thebardchat",
   "license": "MIT",
   "dependencies": {

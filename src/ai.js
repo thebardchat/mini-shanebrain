@@ -22,7 +22,31 @@ const PLATFORM_RULES = {
 - No hashtags in the body (3 max at the very end if any)
 - End with a question or call-to-action
 - Share an insight, lesson, or perspective
-- No emojis`
+- No emojis`,
+
+  twitter: `- 280 characters MAX — be ruthless with every word
+- Single hashtag only if it adds value
+- Punchy, quotable, standalone
+- No thread-style numbering (unless posting a thread)
+- Hook in the first 5 words`,
+
+  reddit: `- Write like a real person on reddit, not a brand
+- Use markdown formatting (headers, bullets, bold)
+- Be genuine, share value, no corporate speak
+- Match the subreddit's tone and culture
+- Self-promotion must provide real value first`,
+
+  discord: `- Casual, community tone
+- Use markdown formatting (bold, italics, code blocks)
+- Can be longer and more conversational than Twitter
+- Include a call to action or discussion prompt
+- Emojis welcome but don't overdo it`,
+
+  bluesky: `- 300 characters max
+- Similar to Twitter but slightly more room
+- Community-focused, genuine voice
+- Hashtags work but keep to 1-2
+- Link-friendly (URLs are rendered nicely)`
 };
 
 export class ContentGenerator {
@@ -44,16 +68,48 @@ export class ContentGenerator {
   /**
    * Generate a post for a specific platform
    * @param {object} options
-   * @param {string} options.platform - 'facebook' | 'instagram' | 'linkedin'
+   * @param {string} options.platform - platform name
+   * @param {string} options.content - pre-written content to adapt (for campaign mode)
    */
   async generatePost(options = {}) {
-    const { topic, mood, maxLength = 280, platform = 'facebook' } = options;
+    const { topic, mood, maxLength = 280, platform = 'facebook', content } = options;
+
+    // Campaign mode: adapt existing content for platform
+    if (content) {
+      return this.adaptContent({ content, platform, maxLength });
+    }
 
     // Pull context from Weaviate RAG if available
     const ragQuery = topic || this.personality;
     const ragContext = await queryKnowledge(ragQuery);
 
     const prompt = this.buildPrompt({ topic, mood, maxLength, platform, ragContext });
+
+    if (this.useOllama) {
+      return this.generateWithOllama(prompt);
+    } else {
+      return this.generateWithClaude(prompt);
+    }
+  }
+
+  /**
+   * Adapt pre-written content for a specific platform
+   * Used by campaign mode to take excerpts/teasers and format per platform
+   */
+  async adaptContent({ content, platform, maxLength }) {
+    const rules = PLATFORM_RULES[platform] || PLATFORM_RULES.facebook;
+
+    const prompt = `You are ${this.personality}. Adapt this content for ${platform}:
+
+"${content}"
+
+Rules:
+- Keep it under ${maxLength} characters
+- Maintain the noir voice and tone — dark, dry, observational
+- This is promoting a noir detective book called "You Probably Think This Book Is About You"
+${rules}
+
+Respond with ONLY the adapted post text. No quotes, no preamble, no commentary.`;
 
     if (this.useOllama) {
       return this.generateWithOllama(prompt);
