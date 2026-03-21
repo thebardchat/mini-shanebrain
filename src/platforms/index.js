@@ -46,3 +46,15 @@ export function loadPlatforms() {
 
   return platforms;
 }
+
+/**
+ * Return platform definitions for content generation even without live tokens.
+ * Used by media-blitz --dry-run when API tokens aren't configured.
+ */
+export function getAllPlatformDefs() {
+  return [
+    { name: 'facebook', maxLength: 63206 },
+    { name: 'instagram', maxLength: 2200 },
+    { name: 'linkedin', maxLength: 3000 }
+  ];
+}

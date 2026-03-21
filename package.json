@@ -10,6 +10,8 @@
     "post": "node src/index.js --post",
     "schedule": "node src/index.js --schedule",
     "platforms": "node src/index.js --platforms",
+    "media-blitz": "node src/index.js --media-blitz --dry-run",
+    "media-blitz-live": "node src/index.js --media-blitz --post",
     "token-setup": "node src/token-setup.js"
   },
   "keywords": ["facebook", "instagram", "linkedin", "automation", "bot", "social-media"],

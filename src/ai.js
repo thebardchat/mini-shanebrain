@@ -6,6 +6,26 @@
 import Anthropic from '@anthropic-ai/sdk';
 import { queryKnowledge } from './weaviate.js';
 
+const BOOK_METADATA = {
+  title: 'You Probably Think This Book Is About You',
+  author: 'Shane Brazelton',
+  tagline: 'It was always about you. It was never only about you.',
+  amazonUrl: 'https://www.amazon.com/dp/B0GT25R5FD',
+  landingPage: 'https://thebardchat.github.io/book',
+  socialImage: 'https://thebardchat.github.io/book/social-launch.png',
+  formats: 'Ebook, Audiobook, Print',
+  genre: '22 noir-style vignettes about ego, identity, and the universal human condition',
+  location: 'Hazel Green, Alabama',
+  excerpts: [
+    `"It's your favorite movie, and you're the lead character. You always have been. The camera follows you — has always followed you — through every dimly lit hallway, every kitchen argument, every moment you sat alone in a car in a parking lot wondering how the plot got this complicated."`,
+    `"A brain that runs at a frequency most equipment wasn't built to measure. Not broken — miscalibrated for a world that moves slower than it does."`,
+    `"The detective closes the file. Not because the case is solved. Because some cases aren't meant to be solved. Some cases are meant to be driven."`,
+    `"The driveway. Engine off. The house glows from inside like something patient. He doesn't get out yet. Between the road and the door there is a version of him that belongs to neither — not the driver, not the father. Just the man."`
+  ]
+};
+
+export { BOOK_METADATA };
+
 const PLATFORM_RULES = {
   facebook: `- No hashtags unless they feel natural
 - No emojis overload (1-2 max if any)
@@ -139,6 +159,109 @@ ${rules}`;
     }
 
     return text;
+  }
+
+  /**
+   * Generate a book promotion post for a specific platform
+   */
+  async generateMediaBlitzPost(options = {}) {
+    const { platform = 'facebook', maxLength = 280 } = options;
+    const prompt = this.buildMediaBlitzPrompt({ platform, maxLength });
+
+    if (this.useOllama) {
+      return this.generateWithOllama(prompt);
+    } else {
+      return this.generateWithClaudeBlitz(prompt);
+    }
+  }
+
+  buildMediaBlitzPrompt({ platform = 'facebook', maxLength = 280 }) {
+    const platformName = platform.charAt(0).toUpperCase() + platform.slice(1);
+    const rules = PLATFORM_RULES[platform] || PLATFORM_RULES.facebook;
+    const book = BOOK_METADATA;
+
+    // Pick 1-2 random excerpts
+    const shuffled = [...book.excerpts].sort(() => Math.random() - 0.5);
+    const selectedExcerpts = shuffled.slice(0, platform === 'instagram' ? 1 : 2);
+
+    let prompt = `You are ${this.personality}. Write a single ${platformName} post promoting your book.
+
+BOOK DETAILS:
+- Title: "${book.title}"
+- Author: ${book.author}
+- Tagline: "${book.tagline}"
+- Genre: ${book.genre}
+- Amazon: ${book.amazonUrl}
+- Landing page: ${book.landingPage}
+- Available as: ${book.formats}
+- Written by a dispatcher, father of five, and AI architect from ${book.location}
+
+SAMPLE EXCERPTS (use one or weave in the vibe):
+${selectedExcerpts.join('\n\n')}
+
+Rules:
+- Keep it under ${maxLength} characters
+- This is a book promotion but should NOT feel like an ad
+- Be authentic — this is a real person sharing something they created
+- Include the Amazon link naturally
+- Do NOT include any preamble like "Here's the post:" — just write the post itself
+${rules}`;
+
+    prompt += `\n\nRespond with ONLY the post text. No quotes, no preamble, no commentary.`;
+
+    return prompt;
+  }
+
+  async generateWithClaudeBlitz(prompt) {
+    const response = await this.anthropic.messages.create({
+      model: 'claude-sonnet-4-20250514',
+      max_tokens: 500,
+      messages: [{ role: 'user', content: prompt }]
+    });
+
+    const text = response.content[0]?.text?.trim();
+    if (!text) {
+      throw new Error('Claude returned empty response');
+    }
+    return text;
+  }
+
+  /**
+   * Generate a newsletter-style email body for the book
+   */
+  async generateEmailBlitz() {
+    const book = BOOK_METADATA;
+    const prompt = `You are ${this.personality}. Write a short, personal newsletter email promoting your book.
+
+BOOK DETAILS:
+- Title: "${book.title}"
+- Author: ${book.author}
+- Tagline: "${book.tagline}"
+- Genre: ${book.genre}
+- Amazon: ${book.amazonUrl}
+- Landing page: ${book.landingPage}
+- Available as: ${book.formats}
+- Written by a dispatcher, father of five, and AI architect from ${book.location}
+
+EXCERPTS:
+${book.excerpts.join('\n\n')}
+
+Rules:
+- Write a personal, warm email from Shane to friends/readers
+- Include 1-2 excerpts woven in naturally
+- Include the Amazon link and landing page link
+- Keep it under 1500 characters
+- Subject line first, then a blank line, then the body
+- No HTML, just plain text
+- Do NOT include preamble — just write the email
+
+Respond with ONLY the email (subject line first, then body).`;
+
+    if (this.useOllama) {
+      return this.generateWithOllama(prompt);
+    } else {
+      return this.generateWithClaudeBlitz(prompt);
+    }
   }
 
   /**

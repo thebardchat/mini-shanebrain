@@ -5,7 +5,7 @@
  */
 
 import 'dotenv/config';
-import { loadPlatforms } from './platforms/index.js';
+import { loadPlatforms, getAllPlatformDefs } from './platforms/index.js';
 import { ContentGenerator } from './ai.js';
 import { startScheduler } from './scheduler.js';
 import { appendFileSync, mkdirSync, existsSync } from 'fs';
@@ -18,6 +18,7 @@ const isSchedule = args.includes('--schedule');
 const isVerify = args.includes('--verify');
 const isIdeas = args.includes('--ideas');
 const isPlatforms = args.includes('--platforms');
+const isMediaBlitz = args.includes('--media-blitz');
 
 // Colors for terminal output
 const colors = {
@@ -58,22 +59,37 @@ async function main() {
   console.log(`${colors.cyan('╚══════════════════════════════════════╝')}\n`);
 
   // Show help if no args
-  if (!isDryRun && !isPost && !isSchedule && !isVerify && !isIdeas && !isPlatforms) {
+  if (!isDryRun && !isPost && !isSchedule && !isVerify && !isIdeas && !isPlatforms && !isMediaBlitz) {
     console.log('Usage:');
     console.log('  npm run dry-run     Preview posts without publishing');
     console.log('  npm run post        Generate and publish to all platforms');
     console.log('  npm run schedule    Run continuously on schedule');
     console.log('');
     console.log('Other commands:');
-    console.log('  node src/index.js --platforms  Show enabled platforms');
-    console.log('  node src/index.js --verify     Check all platform tokens');
-    console.log('  node src/index.js --ideas      Generate post ideas');
+    console.log('  npm run media-blitz             Book promo blitz (dry-run)');
+    console.log('  npm run media-blitz-live        Book promo blitz (publish)');
+    console.log('  node src/index.js --platforms   Show enabled platforms');
+    console.log('  node src/index.js --verify      Check all platform tokens');
+    console.log('  node src/index.js --ideas       Generate post ideas');
     console.log('');
     return;
   }
 
-  // Load enabled platforms
-  const platforms = loadPlatforms();
+  // Load enabled platforms (graceful fallback for media blitz dry-run)
+  let platforms;
+  let platformsLive = true;
+  try {
+    platforms = loadPlatforms();
+  } catch (err) {
+    if (isMediaBlitz && isDryRun) {
+      log(`Platform tokens not configured: ${err.message}`, 'warn');
+      log('Using platform definitions for content generation only...', 'warn');
+      platforms = getAllPlatformDefs();
+      platformsLive = false;
+    } else {
+      throw err;
+    }
+  }
 
   if (platforms.length === 0) {
     log('No platforms enabled! Check POST_TO_* settings in .env', 'error');
@@ -120,6 +136,66 @@ async function main() {
     console.log('\n' + colors.green('Post Ideas:'));
     console.log(ideas);
     console.log('');
+    return;
+  }
+
+  // Media blitz mode — book promotion across all platforms
+  if (isMediaBlitz) {
+    console.log(colors.yellow('\n╔══════════════════════════════════════════════╗'));
+    console.log(colors.yellow('║') + '  MEDIA BLITZ: Book Promotion                 ' + colors.yellow('║'));
+    console.log(colors.yellow('║') + colors.dim('  "You Probably Think This Book Is About You"  ') + colors.yellow('║'));
+    console.log(colors.yellow('║') + colors.dim('  by Shane Brazelton                           ') + colors.yellow('║'));
+    console.log(colors.yellow('╚══════════════════════════════════════════════╝\n'));
+
+    for (const platform of platforms) {
+      log(`[${platform.name}] Generating book promo...`);
+      const content = await ai.generateMediaBlitzPost({
+        platform: platform.name,
+        maxLength: platform.maxLength
+      });
+
+      console.log(`\n${colors.green(`[${platform.name}] Generated promo:`)}`);
+      console.log('─'.repeat(50));
+      console.log(content);
+      console.log('─'.repeat(50));
+      console.log(`Characters: ${content.length}\n`);
+
+      if (isDryRun) {
+        log(`[${platform.name}] DRY RUN — NOT published`, 'warn');
+        logToFile(platform.name, content, false);
+      }
+
+      if (isPost && platformsLive) {
+        log(`[${platform.name}] Publishing...`);
+        try {
+          const imageUrl = platform.name === 'instagram'
+            ? 'https://thebardchat.github.io/book/social-launch.png'
+            : undefined;
+          const result = await platform.post(content, imageUrl);
+          log(`[${platform.name}] Published! ID: ${result.postId}`, 'success');
+          logToFile(platform.name, content, true);
+        } catch (err) {
+          log(`[${platform.name}] Failed: ${err.message}`, 'error');
+          logToFile(platform.name, content, false);
+        }
+      } else if (isPost && !platformsLive) {
+        log(`[${platform.name}] Skipped — no API tokens configured`, 'warn');
+      }
+    }
+
+    // Generate email newsletter content
+    log('\nGenerating email newsletter draft...');
+    const emailContent = await ai.generateEmailBlitz();
+    console.log(`\n${colors.green('[EMAIL] Generated newsletter:')}`);
+    console.log('─'.repeat(50));
+    console.log(emailContent);
+    console.log('─'.repeat(50));
+
+    if (isDryRun) {
+      log('[EMAIL] DRY RUN — Use Gmail MCP tool to create draft', 'warn');
+    }
+
+    console.log(colors.green('\nMedia blitz complete!'));
     return;
   }
 
