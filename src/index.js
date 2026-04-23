@@ -134,19 +134,25 @@ async function main() {
     return;
   }
 
-  // Single post mode (dry-run or live) — loop over all platforms
+  // Single post mode (dry-run or live) — generate all at once
+  log(`Generating content for ${platforms.length} platform(s) in one shot...`);
+  const posts = await ai.generateAllPosts(platforms);
+
   for (const platform of platforms) {
-    log(`[${platform.name}] Generating content...`);
-    const content = await ai.generatePost({
-      platform: platform.name,
-      maxLength: platform.maxLength
-    });
+    const post = posts[platform.name];
+    if (!post) {
+      log(`[${platform.name}] No content generated — skipped`, 'warn');
+      continue;
+    }
+
+    const { text: content, image } = post;
 
     console.log(`\n${colors.green(`[${platform.name}] Generated post:`)}`);
     console.log('─'.repeat(50));
     console.log(content);
     console.log('─'.repeat(50));
     console.log(`Characters: ${content.length}`);
+    if (image) console.log(`Image: [${image.type}] ${image.value.substring(0, 80)}${image.value.length > 80 ? '...' : ''}`);
     console.log('');
 
     if (isDryRun) {
@@ -155,9 +161,9 @@ async function main() {
     }
 
     if (isPost) {
-      log(`[${platform.name}] Publishing...`);
+      log(`[${platform.name}] Publishing with image...`);
       try {
-        const result = await platform.post(content);
+        const result = await platform.post(content, image);
         log(`[${platform.name}] Post published! ID: ${result.postId}`, 'success');
         logToFile(platform.name, content, true);
       } catch (err) {

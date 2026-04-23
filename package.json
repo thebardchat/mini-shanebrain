@@ -12,12 +12,20 @@
     "platforms": "node src/index.js --platforms",
     "token-setup": "node src/token-setup.js"
   },
-  "keywords": ["facebook", "instagram", "linkedin", "automation", "bot", "social-media"],
+  "keywords": [
+    "facebook",
+    "instagram",
+    "linkedin",
+    "automation",
+    "bot",
+    "social-media"
+  ],
   "author": "thebardchat",
   "license": "MIT",
   "dependencies": {
     "@anthropic-ai/sdk": "^0.39.0",
     "dotenv": "^16.4.7",
-    "node-cron": "^3.0.3"
+    "node-cron": "^3.0.3",
+    "sharp": "^0.34.5"
   }
 }

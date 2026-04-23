@@ -1,0 +1,23 @@
+[Unit]
+Description=mini-shanebrain — Multi-Platform Social Bot (6 platforms)
+After=docker.service ollama.service
+Wants=docker.service
+
+[Service]
+Type=simple
+User=shanebrain
+WorkingDirectory=/home/shanebrain/mini-shanebrain
+ExecStart=/usr/bin/node src/index.js --schedule
+Restart=on-failure
+RestartSec=60
+
+# Environment
+EnvironmentFile=/home/shanebrain/mini-shanebrain/.env
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=mini-shanebrain
+
+[Install]
+WantedBy=multi-user.target
