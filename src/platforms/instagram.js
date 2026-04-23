@@ -1,15 +1,16 @@
 /**
  * Instagram platform - Meta Graph API (two-step: container → publish)
- * Requires a public image URL for every post (Instagram has no text-only posts)
+ * Images provided by the content pipeline (Pollinations AI)
  */
 
 import { BasePlatform } from './base.js';
+import { generatePollinationsUrl as generateImageUrl } from '../image.js';
 
 const GRAPH_API_VERSION = 'v21.0';
 const GRAPH_API_BASE = `https://graph.facebook.com/${GRAPH_API_VERSION}`;
 
 export class InstagramPlatform extends BasePlatform {
-  constructor(userId, accessToken, defaultImageUrl) {
+  constructor(userId, accessToken) {
     super({ name: 'instagram', maxLength: 2200 });
     if (!userId) {
       throw new Error('Missing INSTAGRAM_USER_ID in .env');
@@ -17,12 +18,8 @@ export class InstagramPlatform extends BasePlatform {
     if (!accessToken) {
       throw new Error('Missing INSTAGRAM_ACCESS_TOKEN (or FACEBOOK_ACCESS_TOKEN) in .env');
     }
-    if (!defaultImageUrl) {
-      throw new Error('Missing INSTAGRAM_DEFAULT_IMAGE_URL in .env — Instagram requires an image for every post');
-    }
     this.userId = userId;
     this.accessToken = accessToken;
-    this.defaultImageUrl = defaultImageUrl;
   }
 
   /**
@@ -31,7 +28,7 @@ export class InstagramPlatform extends BasePlatform {
    * 2. Publish the container
    */
   async post(message, imageUrl) {
-    const image = imageUrl || this.defaultImageUrl;
+    const image = imageUrl || generateImageUrl(message);
 
     // Step 1: Create media container
     const containerUrl = `${GRAPH_API_BASE}/${this.userId}/media`;

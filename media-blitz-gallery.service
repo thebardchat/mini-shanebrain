@@ -1,0 +1,17 @@
+[Unit]
+Description=ShaneBrain Media Blitz Gallery - Image browser + upload
+After=network.target
+
+[Service]
+Type=simple
+User=shanebrain
+WorkingDirectory=/home/shanebrain/mini-shanebrain
+ExecStart=/usr/bin/python3 image-gallery-server.py
+Restart=on-failure
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=media-blitz-gallery
+
+[Install]
+WantedBy=multi-user.target

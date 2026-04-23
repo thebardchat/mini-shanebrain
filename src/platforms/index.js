@@ -5,10 +5,13 @@
 import { FacebookPlatform } from './facebook.js';
 import { InstagramPlatform } from './instagram.js';
 import { LinkedInPlatform } from './linkedin.js';
+import { XPlatform } from './x.js';
+import { ThreadsPlatform } from './threads.js';
+import { BlueskyPlatform } from './bluesky.js';
 
 /**
  * Read .env toggles and return array of enabled platform instances.
- * POST_TO_FACEBOOK defaults true for backward compat.
+ * Each platform has POST_TO_<NAME>=true/false in .env.
  */
 export function loadPlatforms() {
   const platforms = [];
@@ -23,13 +26,12 @@ export function loadPlatforms() {
     );
   }
 
-  // Instagram
+  // Instagram (images auto-generated via Pollinations AI)
   if (process.env.POST_TO_INSTAGRAM === 'true') {
     platforms.push(
       new InstagramPlatform(
         process.env.INSTAGRAM_USER_ID,
-        process.env.INSTAGRAM_ACCESS_TOKEN || process.env.FACEBOOK_ACCESS_TOKEN,
-        process.env.INSTAGRAM_DEFAULT_IMAGE_URL
+        process.env.INSTAGRAM_ACCESS_TOKEN || process.env.FACEBOOK_ACCESS_TOKEN
       )
     );
   }
@@ -40,6 +42,38 @@ export function loadPlatforms() {
       new LinkedInPlatform(
         process.env.LINKEDIN_ACCESS_TOKEN,
         process.env.LINKEDIN_PERSON_URN
+      )
+    );
+  }
+
+  // X (Twitter)
+  if (process.env.POST_TO_X === 'true') {
+    platforms.push(
+      new XPlatform(
+        process.env.X_API_KEY,
+        process.env.X_API_SECRET,
+        process.env.X_ACCESS_TOKEN,
+        process.env.X_ACCESS_TOKEN_SECRET
+      )
+    );
+  }
+
+  // Threads
+  if (process.env.POST_TO_THREADS === 'true') {
+    platforms.push(
+      new ThreadsPlatform(
+        process.env.THREADS_USER_ID,
+        process.env.THREADS_ACCESS_TOKEN
+      )
+    );
+  }
+
+  // Bluesky
+  if (process.env.POST_TO_BLUESKY === 'true') {
+    platforms.push(
+      new BlueskyPlatform(
+        process.env.BSKY_HANDLE,
+        process.env.BSKY_APP_PASSWORD
       )
     );
   }

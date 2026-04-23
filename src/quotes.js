@@ -1,0 +1,187 @@
+/**
+ * Shane's quote database — 167 originals across 10 categories
+ * Source of truth: shanebrain-core cloud-backup bot
+ */
+
+export const QUOTES = {
+  momentum: [
+    "Don't give me the roadmap. Give me the next step.",
+    "Momentum is the only metric that matters right now.",
+    "I don't need perfect; I need moving.",
+    "Stuck? Find the single smallest move to break loose.",
+    "If I stop moving, the whole machine locks up.",
+    "ADHD isn't a bug; it's a high-velocity processor with no brakes.",
+    "One problem at a time. The rest is just noise.",
+    "Speed over polish. We can polish it when it works.",
+    "Analysis paralysis is the enemy of the sole provider.",
+    "I don't have time for theory. Does it run?",
+    "Clear the buffer. What's the immediate action?",
+    "Complexity kills momentum.",
+    "Just get the cursor moving.",
+    "We build the plane while we fly it, because we can't afford to land.",
+    "Focus is a resource. Don't spend it on 'what ifs'.",
+    "Identify the bottleneck. Smash it. Repeat.",
+    "The only failed code is the code you didn't write today.",
+    "Keep it practical. Keep it moving.",
+    "I can handle chaos. I can't handle stagnation.",
+    "Momentum is my medication.",
+  ],
+  bluecollar: [
+    "I dispatch dump trucks by day and AI agents by night.",
+    "Code needs to be as reliable as a diesel engine.",
+    "If it doesn't solve a problem in the dirt, it's useless in the cloud.",
+    "Dispatching is just logic. Coding is just syntax. It's all routing.",
+    "I'm building tools for the guys with mud on their boots.",
+    "Practical application always beats a white paper.",
+    "You think routing packets is hard? Try routing concrete in rush hour.",
+    "Software should work like a good truck: heavy-duty and low maintenance.",
+    "We don't do 'hello world' here. We do 'get to work'.",
+    "Start with the dirt and build up.",
+    "I speak Python and I speak Dispatcher. They aren't that different.",
+    "Optimize the route. Save the fuel. Save the memory.",
+    "This isn't Silicon Valley. This is Hazel Green logic.",
+    "My office is wherever the laptop opens.",
+    "Real-world problems don't fit in clean little API boxes.",
+    "If it breaks, I fix it. That goes for the Bronco and the bot.",
+    "Building the future, one load at a time.",
+    "Automation isn't about replacing people; it's about getting home sooner.",
+    "Efficiency pays the bills.",
+    "I build systems that work when the internet is down and the pressure is up.",
+  ],
+  lowram: [
+    "We run local-first. I don't trust the cloud with my brain.",
+    "7.4 gigs of RAM is a constraint, not an excuse.",
+    "If it can't run on my hardware, it's bloatware.",
+    "Leaner is better. Always.",
+    "Ollama over OpenAI. Keep it in the house.",
+    "I need code that sips memory, not gulps it.",
+    "Optimization is free performance.",
+    "Weaviate locally. Own your data.",
+    "Do more with what you have right now.",
+    "Cloud dependencies are just rent payments I don't want to make.",
+    "Strip it down. If it's not essential, it's gone.",
+    "Resource constraint breeds creativity.",
+    "My stack is scrappy, but it works.",
+    "Don't sell me a server farm. Show me how to run it on a laptop.",
+    "If it lags, it dies.",
+    "Memory leaks are money leaks.",
+    "Local control means nobody pulls the plug on me.",
+    "Functionality over flash.",
+    "I squeeze every byte out of this machine.",
+    "High efficiency, low overhead. That's the ShaneBrain way.",
+  ],
+  family: [
+    "I do this for the five boys waiting at home.",
+    "Family first. The code can wait.",
+    "I'm not just building a business; I'm building a legacy for my sons.",
+    "Sole provider means there is no Plan B.",
+    "Wrestling practice isn't optional. Neither is success.",
+    "I coach my boys to be tough, and I code my bots to be smart.",
+    "Everything I build has to support the house.",
+    "That's my 'why'.",
+    "Being a dad is the only job title that actually matters.",
+    "We take care of our own.",
+    "A man provides. No excuses.",
+    "I want my boys to see that their dad never quit.",
+    "Teach them to fish? I'm teaching them to build the pond.",
+    "It's loud in my house, but that's the sound of life.",
+    "My startups are for their future.",
+    "Time with the family is the only asset you can't get back.",
+    "We grapple on the mat and we grapple with life.",
+    "Tiffany holds the fort; I just secure the perimeter.",
+    "You fight for every point. You fight for every line of code.",
+    "Make them proud.",
+  ],
+  vision: [
+    "ShaneBrain isn't just a bot; it's a second set of hands.",
+    "Angel Cloud is the ecosystem. We live there.",
+    "I'm building the assistant I wish I could hire.",
+    "The Angel Cloud ecosystem is about autonomy.",
+    "Connecting the dots between my data and my reality.",
+    "One day, this system runs itself.",
+    "I'm digitizing my intuition.",
+    "From Alabama to the algorithm.",
+    "We are building intelligence, not just scripts.",
+    "The goal is a self-sustaining system.",
+    "Every project connects back to the core.",
+    "I don't wait for the future. I code it.",
+    "This isn't a hobby. This is the exit strategy.",
+    "Turn the data into answers.",
+    "My personal context is the database.",
+    "We represent the user. And the user is me.",
+    "Build it once, use it forever.",
+    "Let's get to work.",
+  ],
+  resilience: [
+    "ADHD isn't a bug, it's my OS running at 10x speed while the world lags.",
+    "Self-motivation? That's just me refusing to lose to yesterday's version.",
+    "I'm not reckless; I'm calculated rebellion.",
+    "ADHD brain: 47 tabs open, 3 of them useful.",
+    "Self-motivate or self-destruct—choose daily.",
+    "I'm not broken; I'm upgraded.",
+    "ADHD: superpowers with a side of chaos.",
+    "Motivation isn't a feeling—it's a decision.",
+    "ADHD: chaos is my creativity fuel.",
+    "Self-motivate or stay stuck—simple.",
+  ],
+  maverick: [
+    "Rules are for people who can't write better ones.",
+    "Business isn't about money—it's about owning the chaos.",
+    "Build empires, burn excuses.",
+    "Business isn't personal; it's everything.",
+    "I'm Shane. I don't do ordinary. Ever.",
+  ],
+  tapioca: [
+    "Logistics precision: I break rules, but never timelines.",
+    "Tapioca code activated—get serious or get out.",
+    "Precision logistics: chaos with a spreadsheet.",
+    "Tapioca code: serious mode engaged, no mercy.",
+    "Logistics ninja: silent, precise, unstoppable.",
+    "Tapioca code: lock in, no distractions.",
+    "Logistics precision: I move mountains on schedule.",
+    "Tapioca code: full throttle.",
+    "Precision is my love language.",
+  ],
+  heart: [
+    "Build fast, love slow, break nothing sacred.",
+  ],
+  faith: [
+    "God's word whispered: 'You were made for this storm, not to hide from it.'",
+    "God's word today: 'I will never leave you nor forsake you.'",
+    "God's whisper: 'Fear not, for I am with you.'",
+    "God's word: 'My grace is sufficient for you.'",
+    "Faith over fear.",
+    "We fail forward.",
+    "If you don't own your infrastructure, you don't own your future.",
+    "File structure first.",
+    "Action over theory.",
+  ],
+  book: [
+    "I wrote a book. Noir vignettes about ego, identity, and the stories we tell ourselves. Written by a dump truck dispatcher. Co-built with Claude AI on a Raspberry Pi 5.\n\nhttps://www.amazon.com/Probably-Think-This-Book-About/dp/B0GT25R5FD",
+    "\"You Probably Think This Book Is About You\" — every chapter is a different character who thinks the world revolves around them. Sound familiar? It should.\n\nhttps://www.amazon.com/Probably-Think-This-Book-About/dp/B0GT25R5FD",
+    "A dump truck dispatcher from Alabama wrote a noir book with AI. No MFA. No agent. Just a Pi 5, Claude, and a story that needed telling.\n\nhttps://www.amazon.com/Probably-Think-This-Book-About/dp/B0GT25R5FD",
+    "Ego is the quiet villain in every story. I wrote 20+ vignettes about people who can't see it. \"You Probably Think This Book Is About You\" — out now.\n\nhttps://www.amazon.com/Probably-Think-This-Book-About/dp/B0GT25R5FD",
+    "The book is out. Noir. Raw. Every character thinks they're the hero. Some of you will recognize yourself in these pages — and that's the point.\n\nhttps://www.amazon.com/Probably-Think-This-Book-About/dp/B0GT25R5FD",
+    "What happens when an ADHD dispatcher picks up creative writing at midnight? A noir book about ego, identity, and the lies we tell ourselves.\n\nhttps://www.amazon.com/Probably-Think-This-Book-About/dp/B0GT25R5FD",
+    "I built an AI brain on a Raspberry Pi. Then I used it to co-write a book. Blue-collar noir from Hazel Green, Alabama.\n\nhttps://www.amazon.com/Probably-Think-This-Book-About/dp/B0GT25R5FD",
+    "Some people journal. Some people go to therapy. I wrote noir vignettes about ego at 2 AM with an AI co-pilot. The book is live.\n\nhttps://www.amazon.com/Probably-Think-This-Book-About/dp/B0GT25R5FD",
+  ],
+};
+
+/** Get all quotes as a flat array */
+export function getAllQuotes() {
+  return Object.values(QUOTES).flat();
+}
+
+/** Get a random quote */
+export function getRandomQuote() {
+  const all = getAllQuotes();
+  return all[Math.floor(Math.random() * all.length)];
+}
+
+/** Get a random quote from a specific category */
+export function getQuoteByCategory(category) {
+  const cat = QUOTES[category];
+  if (!cat || cat.length === 0) return getRandomQuote();
+  return cat[Math.floor(Math.random() * cat.length)];
+}

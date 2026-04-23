@@ -1,39 +1,4 @@
-# 🤖 mini-shanebrain
-
-> Facebook automation bot powered by Claude API and Ollama fallback. Node.js. Local-first.
-
-This project operates under the [ShaneTheBrain Constitution](https://github.com/thebardchat/constitution/blob/main/CONSTITUTION.md).
-
----
-
-## What It Does
-
-Automated Facebook page management bot using the Graph API v21.0. Sends AI-generated responses via Claude API with Ollama (local) as fallback — so it keeps working even when offline.
-
-## Stack
-
-| Layer | Tech |
-|-------|------|
-| Runtime | Node.js |
-| AI Primary | Claude API (Anthropic) |
-| AI Fallback | Ollama · llama3.2:1b (local Pi 5) |
-| Automation | Facebook Graph API v21.0 |
-| Networking | Tailscale VPN |
-
-## Hardware
-
-Runs on **Raspberry Pi 5 (16GB)** · **Pironman 5-MAX** · **2TB NVMe RAID 1**
-Path: `/mnt/shanebrain-raid/shanebrain-core/mini-shanebrain/`
-
-## Built With
-
-| Partner | Role |
-|---------|------|
-| **Claude by Anthropic** · [claude.ai](https://claude.ai) | Co-built every line |
-| **Raspberry Pi 5** · [raspberrypi.com](https://www.raspberrypi.com) | Local compute backbone |
-| **Pironman 5-MAX** · [pironman.com](https://www.pironman.com) | NVMe RAID 1 chassis |
-
-> *Part of the [ShaneBrain Ecosystem](https://github.com/thebardchat/constitution) · Hazel Green, Alabama*
+# mini-shanebrain
 
 A quick win for the ADHD brain to control one Social for a couple of weeks.
 
@@ -105,3 +70,15 @@ If you don't want to use Claude API:
 ## License
 
 MIT - do whatever you want with it.
+
+---
+
+**Built by:** Shane Brazelton + Claude Anthropic (ShaneBrain ecosystem, Hazel Green AL)
+
+**Constitution:** This project operates under the [ShaneBrain Constitution](https://github.com/thebardchat/constitution/blob/main/CONSTITUTION.md). See [CONSTITUTION.md](./CONSTITUTION.md).
+
+**GitHub Pages:** [thebardchat.github.io/mini-shanebrain](https://thebardchat.github.io/mini-shanebrain/)
+
+---
+
+Built with [Claude + ShaneBrain](https://claude.ai/referral/4fAMYN9Ing) — AI tools for humans who build.

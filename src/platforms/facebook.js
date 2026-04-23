@@ -3,6 +3,7 @@
  */
 
 import { BasePlatform } from './base.js';
+import { readFileSync } from 'fs';
 
 const GRAPH_API_VERSION = 'v21.0';
 const GRAPH_API_BASE = `https://graph.facebook.com/${GRAPH_API_VERSION}`;
@@ -17,25 +18,38 @@ export class FacebookPlatform extends BasePlatform {
     this.accessToken = accessToken;
   }
 
-  async post(message) {
-    const url = `${GRAPH_API_BASE}/${this.pageId}/feed`;
+  async post(message, image) {
+    if (!image) throw new Error('No image provided — every post must have a picture');
 
+    const url = `${GRAPH_API_BASE}/${this.pageId}/photos`;
+
+    if (image.type === 'local') {
+      // Upload local file as multipart form data
+      const fileData = readFileSync(image.value);
+      const form = new FormData();
+      form.append('message', message);
+      form.append('access_token', this.accessToken);
+      form.append('source', new Blob([fileData], { type: 'image/jpeg' }), 'shanebrain.jpg');
+
+      const response = await fetch(url, { method: 'POST', body: form });
+      const data = await response.json();
+      if (data.error) throw new Error(`Facebook API Error: ${data.error.message}`);
+      return { success: true, postId: data.id || data.post_id, message };
+    }
+
+    // URL-based image
     const response = await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
+        url: image.value,
         message,
         access_token: this.accessToken
       })
     });
-
     const data = await response.json();
-
-    if (data.error) {
-      throw new Error(`Facebook API Error: ${data.error.message}`);
-    }
-
-    return { success: true, postId: data.id, message };
+    if (data.error) throw new Error(`Facebook API Error: ${data.error.message}`);
+    return { success: true, postId: data.id || data.post_id, message };
   }
 
   async getRecentPosts(limit = 5) {
