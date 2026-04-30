@@ -27,7 +27,7 @@ export const QUOTES = {
     "Momentum is my medication.",
   ],
   bluecollar: [
-    "I dispatch dump trucks by day and AI agents by night.",
+    "I run concrete dispatch by day and AI agents by night.",
     "Code needs to be as reliable as a diesel engine.",
     "If it doesn't solve a problem in the dirt, it's useless in the cloud.",
     "Dispatching is just logic. Coding is just syntax. It's all routing.",
@@ -157,9 +157,9 @@ export const QUOTES = {
     "Action over theory.",
   ],
   book: [
-    "I wrote a book. Noir vignettes about ego, identity, and the stories we tell ourselves. Written by a dump truck dispatcher. Co-built with Claude AI on a Raspberry Pi 5.\n\nhttps://www.amazon.com/Probably-Think-This-Book-About/dp/B0GT25R5FD",
+    "I wrote a book. Noir vignettes about ego, identity, and the stories we tell ourselves. Written by a concrete dispatch operator. Co-built with Claude AI on a Raspberry Pi 5.\n\nhttps://www.amazon.com/Probably-Think-This-Book-About/dp/B0GT25R5FD",
     "\"You Probably Think This Book Is About You\" — every chapter is a different character who thinks the world revolves around them. Sound familiar? It should.\n\nhttps://www.amazon.com/Probably-Think-This-Book-About/dp/B0GT25R5FD",
-    "A dump truck dispatcher from Alabama wrote a noir book with AI. No MFA. No agent. Just a Pi 5, Claude, and a story that needed telling.\n\nhttps://www.amazon.com/Probably-Think-This-Book-About/dp/B0GT25R5FD",
+    "A concrete dispatch operator from Alabama wrote a noir book with AI. No MFA. No agent. Just a Pi 5, Claude, and a story that needed telling.\n\nhttps://www.amazon.com/Probably-Think-This-Book-About/dp/B0GT25R5FD",
     "Ego is the quiet villain in every story. I wrote 20+ vignettes about people who can't see it. \"You Probably Think This Book Is About You\" — out now.\n\nhttps://www.amazon.com/Probably-Think-This-Book-About/dp/B0GT25R5FD",
     "The book is out. Noir. Raw. Every character thinks they're the hero. Some of you will recognize yourself in these pages — and that's the point.\n\nhttps://www.amazon.com/Probably-Think-This-Book-About/dp/B0GT25R5FD",
     "What happens when an ADHD dispatcher picks up creative writing at midnight? A noir book about ego, identity, and the lies we tell ourselves.\n\nhttps://www.amazon.com/Probably-Think-This-Book-About/dp/B0GT25R5FD",
